@@ -9,7 +9,9 @@ public class DbContexto : DbContext
     {
         
     }
+    // Importante lembrar: Sempre "marcar" aqui o arquivo//class que será usada para o DB.
     public DbSet<Administrador> Administradores { get; set; } =  default!;
+    public DbSet<Veiculos> Veiculos { get; set; } =  default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
