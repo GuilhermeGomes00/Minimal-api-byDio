@@ -18,6 +18,5 @@ public class Veiculos
     public string Marca { get; set; } = default!;
     
     [Required]
-    [StringLength(10)]
     public int Ano { get; set; } = default!;
 }

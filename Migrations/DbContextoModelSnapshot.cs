@@ -58,7 +58,6 @@ namespace minimal_api_DIO.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Ano")
-                        .HasMaxLength(10)
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Marca")
