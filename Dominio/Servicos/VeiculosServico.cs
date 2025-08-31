@@ -15,34 +15,46 @@ public class VeiculosServico : IVeiculosServico
     
     public List<Veiculos> Todos(int pagina = 1, string? nome = null, string? marca = null)
     {
-        throw new NotImplementedException();
-    }
-
-    public Veiculos GetPorId(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task Setar(Veiculos veiculos)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task Atualizar(Veiculos veiculos)
-    {
-        var veiculo = _ctx
+        var query = _ctx
             .Veiculos
-            .FirstOrDefault(v => v.Id == veiculos.Id);
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(nome))
+        {
+            query = query
+                .Where(
+                    v => EF.Functions.Like
+                    (
+                        v.Nome.ToLower(),$"%{nome}%")
+                    );
+        }
         
         
+        
+        return query.ToList();
+
     }
 
-    public async Task Apagar(Veiculos veiculos)
+    public Veiculos? GetPorId(int id)
     {
-        var veiculo = await _ctx
-            .Veiculos
-            .SingleOrDefaultAsync(v => v.Id == veiculos.Id);
-        if (veiculo == null) Results.NotFound();
-        await _ctx.SaveChangesAsync();
+        return _ctx.Veiculos.Where(v => v.Id == id).FirstOrDefault();
+    }
+
+    public void Incluir(Veiculos veiculos)
+    {
+        _ctx.Veiculos.Add(veiculos);
+        _ctx.SaveChanges();
+    }
+
+    public void Atualizar(Veiculos veiculos)
+    {
+        _ctx.Veiculos.Update(veiculos);
+        _ctx.SaveChanges();
+    }
+
+    public void Apagar(Veiculos veiculos)
+    {
+        _ctx.Veiculos.Remove(veiculos);
+        _ctx.SaveChanges();
     }
 }

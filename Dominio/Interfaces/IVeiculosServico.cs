@@ -7,11 +7,11 @@ public interface IVeiculosServico // É a interface que define o contrato (o que
 {
     List<Veiculos> Todos(int pagina = 1, string? nome = null, string? marca = null);
     
-    Veiculos GetPorId(int id);
+    Veiculos? GetPorId(int id);
     
-    Task Setar(Veiculos veiculos);
+    void Incluir(Veiculos veiculos);
     
-    Task Atualizar(Veiculos veiculos);
+    void Atualizar(Veiculos veiculos);
     
-    Task Apagar(Veiculos veiculos);
+    void Apagar(Veiculos veiculos);
 }
