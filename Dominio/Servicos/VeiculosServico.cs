@@ -13,7 +13,7 @@ public class VeiculosServico : IVeiculosServico
         _ctx = ctx;
     }
     
-    public List<Veiculos> Todos(int pagina = 1, string? nome = null, string? marca = null)
+    public List<Veiculos> Todos(int? pagina = 1, string? nome = null, string? marca = null)
     {
         var query = _ctx
             .Veiculos
@@ -28,8 +28,10 @@ public class VeiculosServico : IVeiculosServico
                         v.Nome.ToLower(),$"%{nome}%")
                     );
         }
-        
-        
+
+        int itensPorPagina = 10;
+        if (pagina != null)
+            query = query.Skip(((int)pagina - 1) * itensPorPagina).Take(itensPorPagina);
         
         return query.ToList();
 
